@@ -10,7 +10,7 @@ body{
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
-    z-index: 2; /* Ensure it's above the filter container */
+    z-index: 2; 
 }
 
 .container {
