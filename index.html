@@ -1,0 +1,194 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bigbasket Grocery Shopping Online</title>
+    <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+    
+    <div class="toggle-filter-btn" id="toggleFilterBtn">Toggle Filter</div>
+
+    <div class="container">
+        <div class="filter-container">
+            <div class="filter-heading">Filter Options</div>
+            <div class="filter-options">
+                <label for="ratingFilter">Rating:</label>
+                <select id="ratingFilter">
+                    <option value="0">All Ratings</option>
+                    <option value="1">1 Star</option>
+                    <option value="2">2 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="5">5 Stars</option>
+                </select>
+            </div>
+            <div class="filter-options">
+                <label for="varietyFilter">Variety:</label>
+                <select id="varietyFilter">
+                    <option value="0">All Varieties</option>
+                    <option value="1">Variety 1</option>
+                    <option value="2">Variety 2</option>
+                    <option value="3">Variety 3</option>
+                </select>
+            </div>
+        </div>
+        <div class="list">
+            <h2>Tea Beverages</h2>
+            <div id="tea-container" class="top-item"></div>
+        </div>
+    </div>
+
+    <script>
+        const imageUrls = [
+        "https://www.bigbasket.com/media/uploads/p/m/40228625_2-indisecrets-organic-tulsi-honey-chamomile.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/1204482_1-red-label-tea.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/40228627_2-indisecrets-organic-tulsi-ginger-turmeric.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/1204490_1-red-label-tea-natural-care.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/1204491_1-taj-mahal-tea.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/40200082_3-tata-tea-gold-tea.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/40276397_2-indisecrets-assorted-tulsi-infusions-with-4-exotic-flavours-sampler-pack.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/20003982_4-wagh-bakri-premium-leaf-tea.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/264437_2-tata-tea-kanan-devan-tea.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/40128177_8-emperia-masters-blend-tea-rich-taste.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/266572_4-3-roses-dust-tea.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/40199390_2-tata-tea-premium-tea.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/40201467_2-tata-tea-gold-care-tea.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/1201451_1-lipton-green-tea-honey-lemon.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/40215109_4-emperia-kadak-tea.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/262810_24-lipton-darjeeling-tea.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/1206485_1-tetley-green-tea-ginger-mint-lemon.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/20004601_3-tetley-green-tea-lemon-honey.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/263613_4-tata-tea-agni-leaf-tea.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/240040_6-tetley-black-tea-original.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/40002111_11-3-roses-top-star.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/20005450_4-organic-india-organic-tulsi-green-tea-lemon-ginger-stress-relieving.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/40222687_3-tata-tea-gold-care-tea-blend-with-rich-taste-natural-ingredients-improves-immunity-memory.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/40288927_3-emperia-emperia-kadak-care-tea.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/40120802_1-girnar-royal-cup-tea.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/40251348_2-tata-tea-agni-black-tea-10-extra-strong-leaves-strong-taste-energising.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/40228624_2-indisecrets-organic-tea-infusion-pure-tulsi.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/40067633_6-goodricke-organic-tea-roasted-darjeeling.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/40160308_4-3-roses-natural-care-tea.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/20003981_7-wagh-bakri-spiced-tea-blend-of-7-refreshing-spices.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/297576_15-tata-tea-chakra-gold-dust-tea.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/264567_11-tata-tea-agni-dust-tea.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/262811_17-lipton-yellow-label-tea-finest-blend.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/252948_2-tata-tea-kanan-devan-tea-classic.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/1201452_1-lipton-green-tea-pure-light.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/266595_11-taj-mahal-tea.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/40026308_3-tata-tea-kanan-devan-tea-golden-leaf.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/297467_9-tetley-masala-tea.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/40275632_2-dabur-vedic-tea-premium-quality-with-30-ayurvedic-herbs-re-energises-boosts-immunity.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/20005449_2-organic-india-chamomile-tea-tulsi-honey.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/100440682_7-taj-mahal-rich-masala-tea.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/40052464_3-wagh-bakri-leaf-tea-navchetan.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/297511_7-tetley-elaichi-tea.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/40052454_2-wagh-bakri-dust-tea.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/40012637_10-lipton-green-tea-pure-light.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/40120792_1-girnar-instant-tea-premix-with-ginger.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/263386_10-organic-india-infusion-bags-tulsi-green-tea.jpg?tr=w-1920,q=80",
+        "https://www.bigbasket.com/media/uploads/p/m/40287566_2-tata-tea-premium-mumbai-cutting-chai-flavoured-tea-100-natural-traditional-authentic.jpg?tr=w-1920,q=80",
+            
+            
+        ];
+
+        const teaProducts = imageUrls.map((imageUrl, index) => ({
+            image: imageUrl,
+            price: (index % 15 + 5) * 15,
+            discountPercentage: index % 5 + 5,
+            rating: (Math.random() * 5).toFixed(1),
+            brand: `Brand ${index % 3 + 1}`,
+            variety: `Variety ${(index % 3) + 1}`
+        }));
+
+        function createTeaCard(product) {
+            const teaCard = document.createElement('div');
+            teaCard.classList.add('card2');
+
+            const teaImage = document.createElement('img');
+            teaImage.src = product.image;
+            teaImage.alt = product.name;
+
+            const teaTitle = document.createElement('h3');
+            teaTitle.textContent = product.name;
+
+            const teaDescription = document.createElement('p');
+            teaDescription.textContent = product.description;
+
+            const teaPrice = document.createElement('p');
+            teaPrice.textContent = `Price: ₹${product.price}`;
+
+            const teaDiscount = document.createElement('p');
+            teaDiscount.textContent = `Discount: ${product.discountPercentage}% off`;
+
+            const ratingBox = document.createElement('div');
+            ratingBox.classList.add('rating-box');
+            ratingBox.textContent = `Rating: ${product.rating}`;
+            for (let i = 0; i < 5; i++) {
+                const star = document.createElement('span');
+                star.classList.add('star');
+                if (i < Math.floor(product.rating)) {
+                    star.textContent = '★';
+                } else {
+                    star.textContent = '☆';
+                }
+                ratingBox.appendChild(star);
+            }
+
+            const brandBox = document.createElement('div');
+            brandBox.classList.add('brand-box');
+            brandBox.textContent = `Brand: ${product.brand}`;
+
+            const varietyBox = document.createElement('div');
+            varietyBox.classList.add('brand-box');
+            varietyBox.textContent = `Variety: ${product.variety}`;
+
+            const buttonContainer = document.createElement('div');
+            buttonContainer.classList.add('button-container');
+
+            const addToCartBtn = document.createElement('button');
+            addToCartBtn.classList.add('cart-btn');
+            addToCartBtn.textContent = 'Add to Cart';
+
+            const discountBtn = document.createElement('button');
+            discountBtn.classList.add('discount-btn');
+            discountBtn.textContent = 'Apply Discount';
+
+            discountBtn.addEventListener('click', () => {
+                console.log(`Applied discount for ${product.name}!`);
+            });
+
+            buttonContainer.appendChild(addToCartBtn);
+            buttonContainer.appendChild(discountBtn);
+
+            teaCard.appendChild(teaImage);
+            teaCard.appendChild(teaTitle);
+            teaCard.appendChild(teaDescription);
+            teaCard.appendChild(teaPrice);
+            teaCard.appendChild(teaDiscount);
+            teaCard.appendChild(ratingBox);
+            teaCard.appendChild(brandBox);
+            teaCard.appendChild(varietyBox);
+            teaCard.appendChild(buttonContainer);
+
+            return teaCard;
+        }
+
+        const teaContainer = document.getElementById('tea-container');
+
+        teaProducts.forEach((product) => {
+            const teaCard = createTeaCard(product);
+            teaContainer.appendChild(teaCard);
+        });
+
+        const filterBtn = document.getElementById('toggleFilterBtn');
+        const filterContainer = document.querySelector('.filter-container');
+
+        filterBtn.addEventListener('click', () => {
+            filterContainer.style.left = filterContainer.style.left === '0%' ? '-20%' : '0%';
+        });
+    </script>
+    
+</body>
+</html>
